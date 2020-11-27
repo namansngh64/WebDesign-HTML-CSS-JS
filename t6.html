@@ -1,0 +1,424 @@
+<html>
+<head>
+<script>
+//data storage variables
+var step1=[];
+var ele = document.getElementsByName('gender');
+var x=0;
+var row6,row7;
+var step2=[];
+var fl=0; //for checking that obtained marks are not greater than max marks
+
+//onFous of textfields
+function myfocus(a){
+	a.style.border="1px solid green";
+}
+
+//onblur of textfields
+function myblur(a){
+	var c="d"+a.substring(1);
+	if(document.getElementById(a).value==""){
+		document.getElementById(c).innerHTML="&emsp; Please Enter Details";
+		document.getElementById(a).style.border="1px solid red";
+	}
+	else{ 
+		document.getElementById(c).innerHTML="";
+		document.getElementById(a).style.border="1px solid green";
+	}
+	if(a=="t10" && Number(document.getElementById(a).value)>10){                      //cgpa checking
+		document.getElementById(c).innerHTML="&emsp; Please Enter Valid CGPA";
+		document.getElementById(a).style.border="1px solid red";
+	}
+}
+
+//onClick of step 1
+function myclick1(){
+	var c;
+	var f=0;
+	for(var i=1;i<=7;i++)
+	{
+		c="t"+i;
+		if(document.getElementById(c).value==""){
+			f=1;break;
+		}
+	}
+	if(f==0){
+		document.getElementById("first").style.display="none";
+		document.getElementById("step1").style.backgroundColor="green";
+		document.getElementById("step2").style.backgroundColor="orange";
+		for(var i=0;i<=6;i++)
+		{
+			c="t"+(i+1);
+			step1[i]=document.getElementById(c).value;		
+		}
+		if(ele[0].checked)
+			step1[7]=ele[0].value;
+		else
+			step1[7]=ele[1].value;	
+		document.getElementById("second").style.display="block";
+	}
+}
+
+//checking if obtained marks is greater than max marks
+function numcheck(a,b){
+	if(document.getElementById(b).value==""){
+		var c="d"+b.substring(1);
+		document.getElementById(c).innerHTML="&emsp; Please Enter Details";
+		document.getElementById(b).style.border="1px solid red";		
+	}
+	if(document.getElementById(a).value==""){
+		var c="d"+a.substring(1);
+		document.getElementById(c).innerHTML="&emsp; Please Enter Details";
+		document.getElementById(a).style.border="1px solid red";		
+	}
+	if(document.getElementById(a).value!="" && document.getElementById(b).value!=""){
+		var c="d"+b.substring(1);
+		document.getElementById(c).innerHTML="";
+		c="d"+a.substring(1);
+		document.getElementById(c).innerHTML="";
+		
+		if(Number(document.getElementById(a).value)>Number(document.getElementById(b).value)){
+			c="d"+b.substring(1);
+			document.getElementById(c).innerHTML="Obtained marks cant be greater than max marks";
+			document.getElementById(b).style.border="1px solid red";
+			document.getElementById(a).style.border="1px solid red";
+			fl=1;
+		}
+		else{
+			var c="d"+b.substring(1);
+			document.getElementById(c).innerHTML="";
+			c="d"+a.substring(1);
+			document.getElementById(c).innerHTML="";
+			document.getElementById(b).style.border="1px solid green";
+			document.getElementById(a).style.border="1px solid green";
+			fl=0;
+		}
+	}
+}
+
+//add new row
+function addnewrow(){
+	if(x<2){
+		if(x==0){
+			document.getElementById("dt1").style.display="table-row";
+			//row6=document.getElementById("table1").innerHTML;
+			//document.getElementById("table1").innerHTML=row6+"<tr><td>6</td><td><input type='text' id='t2' onFocus='myfocus(this);' onblur='myblur('t26');' style='width:100%'><div id='d26'></div></td><td><input type='text' id='t27' onFocus='myfocus(this);' onblur='numcheck('t28','t27');' style='width:100%'><div id='d27'></div></td><td><input type='text' id='t28' onFocus='myfocus(this);' onblur='numcheck('t28','t27');' style='width:100%'><div id='d28'></div></td></tr>";
+			document.getElementById("remove").style.display="block";
+			x++;		
+		}
+		else{
+			document.getElementById("dt2").style.display="table-row";
+			//row7=document.getElementById("table1").innerHTML;
+			//document.getElementById("table1").innerHTML=row7+"<tr> <td>7</td><td><input type='text' id='t29' onFocus='myfocus(this);' onblur='myblur('t29');' style='width:100%'><div id='d29'></div></td><td><input type='text' id='t30' onFocus='myfocus(this);' onblur='numcheck('t31','t30');' style='width:100%'><div id='d30'></div></td><td><input type='text' id='t31' onFocus='myfocus(this);' onblur='numcheck('t31','t30');' style='width:100%'><div id='d31'></div></td></tr>";
+			x++;		
+		}
+	}
+}
+
+//remove row
+function removerow(){
+	if(x==2){
+		document.getElementById("dt2").style.display="none";
+		x--;
+	}
+	else if(x==1){
+		document.getElementById("dt1").style.display="none";		
+		//document.getElementById("table1").innerHTML=row6;
+		x--;
+		document.getElementById("remove").style.display="none";
+	}
+}
+
+//onclick of step 2
+function myclick2(){
+	var n;	
+	if(x==2)
+		n=31;
+	else if(x==1)
+		n=28;
+	else
+		n=25;	
+	var c;
+	var f=0;
+	for(var i=8;i<=n;i++)
+	{
+		c="t"+i;
+		if(document.getElementById(c).value==""){
+			f=1;break;
+		}
+	}
+	if(f==0){
+		for(var i=11;i<=n;i+=3)
+		{
+			c="t"+i;
+			var d="t"+(i-3);
+			if(document.getElementById(c).value==document.getElementById(d).value){
+				f=1;alert("Same Subject Name");break;
+			}
+		}
+	}
+	if(f==0 && fl==0){
+		document.getElementById("step2").style.backgroundColor="green";
+		document.getElementById("step3").style.backgroundColor="orange";
+		for(var i=0,j=8;j<=n;i++,j++){
+			c="t"+j;
+			step2[i]=document.getElementById(c).value;
+		}	
+		document.getElementById("second").style.display="none";
+		document.getElementById("third").style.display="block";
+		if(x==1)
+			document.getElementById("e1").style.display="table-row";
+		else if(x==2){
+			document.getElementById("e1").style.display="table-row";
+			document.getElementById("e2").style.display="table-row";
+		}	
+	}
+	myinitial(n); 
+	
+}
+
+//displaying all the saved data
+function myinitial(n){
+	document.getElementById("data1").value=step1[0];
+	document.getElementById("data2").value=step1[1];	
+	document.getElementById("data3").value=step1[7];
+	for(var i=2,j=4;j<9;j++,i++){
+		var c="data"+j;
+		document.getElementById(c).value=step1[i];
+	}
+	for(var i=0,j=9;j<=n+1;i++,j++){
+			c="data"+j;
+			document.getElementById(c).value=step2[i];
+	}
+	var i=13,j=14;	
+	var mm=0,om=0;
+	for(i,j;j<=n+1;i+=3,j+=3){
+		mm=mm+parseInt(step2[i-9]);
+		om=om+parseInt(step2[j-9]);
+	}
+	var perc=(om/mm)*100;
+	document.getElementById("p").value=perc;
+}
+</script>
+</head>
+<body>
+
+<div style="height:35px;background-color:blue;font-size:30">
+	<center>WELCOME TO DAV SCHOOL</center>
+</div><br>
+<div id="step1" style="float:left;width:20%;height:35px;background-color:orange;font-size:30">
+	<center>STEP 1</center>
+</div>
+<div style="float:left;width:20%;height:35px;background-color:grey;font-size:30">
+	<center>→	</center>
+</div>
+<div id="step2" style="float:left;width:20%;height:35px;background-color:red;font-size:30">
+	<center>STEP 2</center>
+</div>
+<div style="float:left;width:20%;height:35px;background-color:grey;font-size:30">
+	<center>→	</center>
+</div>
+<div id="step3" style="float:left;width:20%;height:35px;background-color:red;font-size:30">
+	<center>STEP 3</center>
+</div>
+<br><br><br>
+
+<div id="first" style="border:1px solid black"><br>
+	<div style="float:left">Name:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="text" id="t1" onFocus="myfocus(this);" 			onblur="myblur('t1');"></div><div id="d1"></div><br><br>
+	<div style="float:left">Age:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="text" id="t2" onFocus="myfocus(this);" 		onblur="myblur('t2');"></div><div id="d2"></div><br><br>
+	<div style="float:left">Gender:&emsp;&emsp;&emsp;&emsp;&emsp;<input type="radio" name="gender" value="male" checked><label for="male">Male</label><input type="radio" name="gender" value="female" ><label for="female">Female</label></div><br><br>
+	<div style="float:left">Father's Name:&emsp;&emsp;&emsp;<input type="text" id="t3" onFocus="myfocus(this);" onblur="myblur('t3');"></div><div id="d3"></div><br><br>
+	<div style="float:left">Mother's Name:&emsp;&emsp;&emsp;<input type="text" id="t4" onFocus="myfocus(this);" onblur="myblur('t4');"></div><div id="d4"></div><br><br>
+	<div style="float:left">Address:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="text" id="t5" onFocus="myfocus(this);" onblur="myblur('t5');"></div><div id="d5"></div><br><br>
+	<div style="float:left">City:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="text" id="t6" onFocus="myfocus(this);" onblur="myblur('t6');"></div><div id="d6"></div><br><br>
+	<div style="float:left">Pin Code:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="text" id="t7" onFocus="myfocus(this);" onblur="myblur('t7');"></div><div id="d7"></div><br><br>
+	<center><input type="button" value="Next" onClick="myclick1();"></center><br>
+</div>
+
+<div id="second" style="border:1px solid black;display:none"><br>
+	<h1>Matriculate / Xth Details</h1>
+	<table border=1 style="width:100%">
+		<tr>
+			<th>Standard</th>
+			<th>School Name</th>
+			<th>Board</th>
+			<th>Obtained CGPA</th>
+		</tr>
+		<tr>
+			<td>X</td>
+			<td><input type="text" id="t8" onFocus="myfocus(this);" onblur="myblur('t8');" style="width:100%"><div id="d8"></div></td>
+			<td><input type="text" id="t9" onFocus="myfocus(this);" onblur="myblur('t9');" style="width:100%"><div id="d9"></div></td>
+			<td><input type="text" id="t10" onFocus="myfocus(this);" onblur="myblur('t10');" style="width:100%"><div id="d10"></div></td>
+		</tr>	
+	</table>
+	<br><br>
+	<h1>Intermediate / XIIth Details</h1>
+	<table id="table1" border=1 style="width:100%;">
+		<tr>
+			<th>S.No</th>
+			<th>Subject</th>
+			<th>Total Marks</th>
+			<th>Obtained Marks</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td><input type="text" id="t11" onFocus="myfocus(this);" onblur="myblur('t11');" style="width:100%"><div id="d11"></div></td>
+			<td><input type="text" id="t12" onFocus="myfocus(this);" onblur="numcheck('t13','t12');" style="width:100%"><div id="d12"></div></td>
+			<td><input type="text" id="t13" onFocus="myfocus(this);" onblur="numcheck('t13','t12');" style="width:100%"><div id="d13"></div></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><input type="text" id="t14" onFocus="myfocus(this);" onblur="myblur('t14');" style="width:100%"><div id="d14"></div></td>
+			<td><input type="text" id="t15" onFocus="myfocus(this);" onblur="numcheck('t16','t15');" style="width:100%"><div id="d15"></div></td>
+			<td><input type="text" id="t16" onFocus="myfocus(this);" onblur="numcheck('t16','t15');" style="width:100%"><div id="d16"></div></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td><input type="text" id="t17" onFocus="myfocus(this);" onblur="myblur('t17');" style="width:100%"><div id="d17"></div></td>
+			<td><input type="text" id="t18" onFocus="myfocus(this);" onblur="numcheck('t19','t18');" style="width:100%"><div id="d18"></div></td>
+			<td><input type="text" id="t19" onFocus="myfocus(this);" onblur="numcheck('t19','t18');" style="width:100%"><div id="d19"></div></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td><input type="text" id="t20" onFocus="myfocus(this);" onblur="myblur('t20');" style="width:100%"><div id="d20"></div></td>
+			<td><input type="text" id="t21" onFocus="myfocus(this);" onblur="numcheck('t22','t21');" style="width:100%"><div id="d21"></div></td>
+			<td><input type="text" id="t22" onFocus="myfocus(this);" onblur="numcheck('t22','t21');" style="width:100%"><div id="d22"></div></td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td><input type="text" id="t23" onFocus="myfocus(this);" onblur="myblur('t23');" style="width:100%"><div id="d23"></div></td>
+			<td><input type="text" id="t24" onFocus="myfocus(this);" onblur="numcheck('t25','t24');" style="width:100%"><div id="d24"></div></td>
+			<td><input type="text" id="t25" onFocus="myfocus(this);" onblur="numcheck('t25','t24');" style="width:100%"><div id="d25"></div></td>
+		</tr>
+			<tr id="dt1" style="display:none">
+			<td>6</td>
+			<td><input type="text" id="t26" onFocus="myfocus(this);" onblur="myblur('t26');" style="width:100%"><div id="d26"></div></td>
+			<td><input type="text" id="t27" onFocus="myfocus(this);" onblur="numcheck('t28','t27');" style="width:100%"><div id="d27"></div></td>
+			<td><input type="text" id="t28" onFocus="myfocus(this);" onblur="numcheck('t28','t27');" style="width:100%"><div id="d28"></div></td>
+			</tr>
+		<tr id="dt2" style="display:none">
+			<td>7</td>
+			<td><input type="text" id="t29" onFocus="myfocus(this);" onblur="myblur('t29');" style="width:100%"><div id="d29"></div></td>
+			<td><input type="text" id="t30" onFocus="myfocus(this);" onblur="numcheck('t31','t30');" style="width:100%"><div id="d30"></div></td>
+			<td><input type="text" id="t31" onFocus="myfocus(this);" onblur="numcheck('t31','t30');" style="width:100%"><div id="d31"></div></td>
+		</tr>
+		</table>
+		<br>
+<div style="float:left"><input type="button" value="Add New Subject" onclick="addnewrow();" style="background-color:green;"></div>
+<div style="float:right"><input type="button" value="Next" style="background-color:green;" onclick="myclick2();"></div>
+<div id="remove" style="display:none"><center><input type="button" value="Remove Subject" onclick="removerow();" style="background-color:green;"></center></div>
+<br><br>
+</div>
+
+<div id="third" style="display:none;width:100%">
+	<h1>Personal Details</h1>
+	<table border=1>
+		<tr>
+			<th>Name</th>
+			<th>Age</th>
+			<th>Gender</th>
+		</tr>
+		<tr>
+			<td ><input type="text" id="data1"></td>
+			<td ><input type="text" id="data2"></td>
+			<td ><input type="text" id="data3"></td>
+		</tr>	
+	</table>
+	<h1>Family Details</h1>
+	<table border=1>
+		<tr>
+			<th>Father's Name</th>
+			<th>Mother's Name</th>
+			
+		</tr>
+		<tr>
+			<td ><input type="text" id="data4"></td>
+			<td ><input type="text" id="data5"></td>
+			
+		</tr>	
+	</table>
+	<h1>Address Details</h1>
+	<table border=1>
+		<tr>
+			<th>Address</th>
+			<th>City</th>
+			<th>Pincode</th>
+			
+		</tr>
+		<tr>
+			<td ><input type="text" id="data6"></td>
+			<td ><input type="text" id="data7"></td>
+			<td ><input type="text" id="data8"></td>
+			
+		</tr>	
+	</table>
+	<h1>Matriculate / Xth Details</h1>
+	<table border=1 style="width:100%">
+		<tr>
+			<th>Standard</th>
+			<th>School Name</th>
+			<th>Board</th>
+			<th>Obtained CGPA</th>
+		</tr>
+		<tr>
+			<td>X</td>
+			<td><input type="text" id="data9" style="width:100%"></td>
+			<td><input type="text" id="data10" style="width:100%"></td>
+			<td><input type="text" id="data11" style="width:100%"></td>
+		</tr>	
+	</table>
+	<h1>Intermediate / XIIth Details</h1>
+	<table border=1 style="width:100%">
+		<tr>
+			<th>S.No</th>
+			<th>Subject</th>
+			<th>Total Marks</th>
+			<th>Obtained Marks</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td><input type="text" id="data12" style="width:100%"></td>
+			<td><input type="text" id="data13" style="width:100%"></td>
+			<td><input type="text" id="data14" style="width:100%"></td>
+		</tr>	
+		<tr>
+			<td>2</td>
+			<td><input type="text" id="data15" style="width:100%"></td>
+			<td><input type="text" id="data16" style="width:100%"></td>
+			<td><input type="text" id="data17" style="width:100%"></td>
+		</tr>	
+		<tr>
+			<td>3</td>
+			<td><input type="text" id="data18" style="width:100%"></td>
+			<td><input type="text" id="data19" style="width:100%"></td>
+			<td><input type="text" id="data20" style="width:100%"></td>
+		</tr>	
+		<tr>
+			<td>4</td>
+			<td><input type="text" id="data21" style="width:100%"></td>
+			<td><input type="text" id="data22" style="width:100%"></td>
+			<td><input type="text" id="data23" style="width:100%"></td>
+		</tr>	
+		<tr>
+			<td>5</td>
+			<td><input type="text" id="data24" style="width:100%"></td>
+			<td><input type="text" id="data25" style="width:100%"></td>
+			<td><input type="text" id="data26" style="width:100%"></td>
+		</tr>	
+		<tr id="e1" style="display:none">
+			<td>6</td>
+			<td><input type="text" id="data27" style="width:100%"></td>
+			<td><input type="text" id="data28" style="width:100%"></td>
+			<td><input type="text" id="data29" style="width:100%"></td>
+		</tr>	
+		<tr id="e2" style="display:none">
+			<td>7</td>
+			<td><input type="text" id="data30" style="width:100%"></td>
+			<td><input type="text" id="data31" style="width:100%"></td>
+			<td><input type="text" id="data32" style="width:100%"></td>
+		</tr>	
+	</table>
+	<h2>Percentage</h2> <input type="text" id="p">
+</div>
+</body>
+</html>

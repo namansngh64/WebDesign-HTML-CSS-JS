@@ -1,0 +1,430 @@
+<html>
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>   
+    <script src="https://kit.fontawesome.com/23c8a87fa5.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <style>
+        .user-btn{
+            border-radius: 50%;
+            height: 70px;
+            width: 70px;
+            border: 0;
+            font-size: 25px;
+            margin-top: -10px;
+            background-color: #00b4e7;
+            color: white;
+        }
+        .cross-btn{
+            border-radius: 50%;
+            background-color: white;
+            height: 40px;
+            width: 40px;
+            float: right;
+            font-size: 24px;
+            margin-right: 10%;
+            margin-top: 5%;            
+        }
+        .sidebar-panel{
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 360px;
+            z-index: 1;
+            opacity: 0;
+            transform: scale(0,1);
+            transform-origin: right;
+            transition: all .5s
+        }
+        .show{
+            opacity: 1;
+            transform: scale(1);
+        }
+        .sidebar-panel>ul>li{
+            padding: 2%;
+            opacity: 0;
+            transform: translateX(50%);
+            transition: all .7s;
+            
+        }
+        .sidebar-panel.show>ul>li:nth-child(1){
+            transition-delay: .2s;
+        }
+        .sidebar-panel.show>ul>li:nth-child(2){
+            transition-delay: .3s;
+        }
+        .sidebar-panel.show>ul>li:nth-child(3){
+            transition-delay: .4s;
+        }
+        .sidebar-panel.show>ul>li:nth-child(4){
+            transition-delay: .5s;
+        }
+        .sidebar-panel.show>ul>li:nth-child(5){
+            transition-delay: .6s;
+        }
+        .sidebar-panel.show>ul>li:nth-child(6){
+            transition-delay: .7s;
+        }
+        .sidebar-panel.show>ul>li:nth-child(7){
+            transition-delay: .8s;
+        }
+        .sidebar-panel.show>ul>li:nth-child(8){
+            transition-delay: .9s;
+        }
+        .sidebar-panel.show>ul>li{
+            opacity: 1;
+            transform: translateX(0);
+        }
+        body{
+            font-family: 'Rubik',sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+        }
+        .sidebar-panel a:hover,.sidebar-panel a,.sidebar-panel a:focus{
+            text-decoration: none;
+            color: white;
+        }
+        .mycontainer{
+           
+            padding: 0 64px;
+           
+        }
+        .sticky-sidebar{
+            border: 1px solid #E6E6E6;
+            border-radius: 10px;
+            padding:  5px 5px 5px 5px;
+            float: left;
+            font-size: 16px;
+            position: -webkit-sticky;
+            position:sticky;
+            top:50px;
+            
+        }
+        .sticky-sidebar a{
+            color: #b9b9b9;
+            font-weight: 400;
+        }
+        .sticky-sidebar ul{
+            padding-left: 10px;
+/*
+            padding-left: 5%;
+            padding-right: 5%;
+*/
+            
+            
+        }
+        .sticky-sidebar li{
+            padding-top:1%; 
+/*            margin: 8% 2% 8% 10%;*/
+        }
+/*
+        .cross-btn:hover,.cross-btn:active,.cross-btn:focus{
+            background-color: white;
+        }
+*/
+        .sticky-sidebar a{
+            text-decoration: none;
+        }
+/*
+        .animated{
+            background-image: url(https://images.freeimages.com/images/large-previews/61e/workout-1421507.jpg);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+*/
+        .img-c{
+            z-index:-1;
+            position: absolute;
+        }
+        .img-c img{
+            height: 500px;
+            width: 700px;
+        }
+        @media (max-width: 823px){
+            .img-c{
+                z-index: 0;
+                position: relative;
+            }
+            .img-c img{
+                height: 300px;
+                width: 500px;
+            }
+            .footer-ul{
+                display: none;
+            }
+        }
+        @-webkit-keyframes fadeInRight {
+            0% {
+               opacity: 0;
+               -webkit-transform: translateX(20px);
+            }
+            100% {
+               opacity: 1;
+               -webkit-transform: translateX(0);
+            }
+         }
+       
+        @keyframes fadeInRight {
+           0% {
+              opacity: 0;
+              transform: translateX(100px);
+           }
+           100% {
+              opacity: 1;
+              transform: translateX(0);
+           }
+        } 
+        .fadeInRight {
+            -webkit-animation-name: fadeInRight;
+            animation-name: fadeInRight;
+         }
+         .animated{
+            -webkit-animation-name: fadeInRight;
+            animation-name: fadeInRight;
+             -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            
+        }
+        .myblock{
+            border: 1px solid #83c1f7;
+            border-radius: 10px;
+            padding: 10%;
+            height: 100%;
+        }
+        .myfooter{
+            padding: 2%;
+        }
+        .myfooter a{
+            text-decoration: none;
+            color: black;
+        }
+        .myfooter a:hover{
+            color: #00b4e7;
+        }
+        .footer-ul a{
+            color: #292626;
+            text-decoration: none;
+            transition: 0.4s
+        }
+        .footer-ul a:hover{
+            color:#00b4e7; 
+        }
+        .footer-ul ul li{
+            padding: 2%;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="mycontainer">
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+            <div  style="float: left;padding-top: 10px">
+                <img src="https://d2s1ihd3nx2v47.cloudfront.net/static/images/icon/fittr-logo.svg" style="max-width: 100%;text-align: center;object-fit: cover;vertical-align: middle!important;border-style: none;display: block;">
+            </div>
+            
+                <div style="float: right;max-width: 100%;">
+                    <button class="btn btn-default user-btn"><i class="fas fa-user" style="color: white;"></i></button>
+                    <a onclick="show_side()" class="btn btn-default">
+                        <img src="https://d2s1ihd3nx2v47.cloudfront.net/static/images/icon/fittr-menu.svg">
+                    </a>
+                    <div class="sidebar-panel" style="background-color:#00b4e7; " id="sidepanel">
+                        <button onclick="hide_side()" class="btn btn-default cross-btn"><i class="fas fa-times" style="color: black;"></i></button>
+                        <br>
+                        <ul type="none" style="margin-top: 10%;padding: 5% 10%; padding-left: : 10%;font-family:'Rubik', sans-serif;font-size: 35px; color: white;">
+                            <li><a href="#">
+                            Coaching
+                            </a></li>
+                            <li><a href="#">Explore</a></li>
+                            <li><a href="#">Corporate</a></li>
+                            <li><a href="#">Become a Coach</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Charity</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="sticky-sidebar" >
+                    <ul type="none" ><br>
+                        <li><a href="#">
+                        <i class="fas fa-apple-alt"></i> Fitness and Nutrition
+                        </a></li><br>
+                        <li><a href="#"><i class="fas fa-universal-access"></i> Yoga</a></li><br>
+                        <li><a href="#"><i class="fas fa-universal-access"></i> Martial Arts</a></li><br>
+                        <li><a href="#"><i class="fas fa-universal-access"></i> Strength Conditioning</a></li><br>
+                        <li><a href="#"><i class="fas fa-universal-access"></i> Zumba</a></li><br>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="animated">
+                    
+                    <div class="row">
+                        <a href="#"><img src="https://d2s1ihd3nx2v47.cloudfront.net/static/images/icon/breadcrumb-home.png" alt="breadcrumbs"></a>
+                        &nbsp;&nbsp;&nbsp; > &nbsp;&nbsp;&nbsp;Coaching
+                    </div>
+                    <br>
+                    <br>
+                    <div class="img-c">
+                        <img src="https://images.freeimages.com/images/large-previews/61e/workout-1421507.jpg" >
+                        </div>
+                    <div class="row">
+                        <h2><b>It’s more than just weight loss!</b></h2>
+                        <h1><b>WE’RE REDEFINING FITNESS!</b></h1>
+                        
+                        <p style="font-size: 18px;width: 50%">
+                        At Fittr, we believe in science. Our Coaches are some of the best fitness and nutrition experts in the industry. When you enroll with Fittr, they will guide you on every step of your fitness journey. From customised diet plans, individual workout programs and a whole lot of motivation and inspiration, our Coaches are committed to helping you get fit and stay healthy. Live a healthy life. Get the Fittr advantage. Enroll with a Fittr Coach today.
+                        </p>
+                        
+                    </div>    
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <h1><b><center>FEATURES</center></b></h1>
+            </div>
+        </div>
+        <div class="row animated">
+            <div class="col-sm-4">
+                <div class="myblock">
+                    <center>
+                    <img src="https://d2s1ihd3nx2v47.cloudfront.net/static/images/svg-animi/png/trust-and-credibility.png"  >
+                    <br>
+                    <br>
+                    <h2><b>Trust & Credibility</b></h2>
+                    <br><br>
+                    Backed by experts delivering results that are quantifiable & measurable
+                        </center>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="myblock">
+                    <center>
+                    <img src="https://d2s1ihd3nx2v47.cloudfront.net/static/images/home/human-touch.png">
+                    <br>
+                    <br>
+                    <h2><b>Custom Programs</b></h2>
+                    <br><br>
+                    We co-create solutions that work for you
+                    </center>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="myblock">
+                    <center>
+                    <img src="https://d2s1ihd3nx2v47.cloudfront.net/static/images/home/community.png">
+                    <br><br>
+                    <h2><b>Fittr App</b></h2>
+                    <br><br>
+                    Secure login to create a fitness community within your company
+                        </center>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="row footer-ul">
+<!--            <div class="footer-big" style="display: inline">-->
+                <div class="col-sm">
+                    <ul type="none" >
+                        <li><h4><b>Company</b></h4></li>
+                        <br>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Become a Coach</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Charity</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <ul type="none">
+                        <li><h4><b>Services</b></h4></li>
+                        <br>
+                        <li><a href="#">Coaching</a></li>
+                        <li><a href="#">Corporate Wellness</a></li>
+                        <li><a href="#">Fitness and Nutriton Courses</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="col-sm">
+                   <ul type="none">
+                        <li><h4><b>Explore</b></h4></li>
+                       <br> 
+                       <li><a href="#">Fitness Articles</a></li>
+                       <li><a href="#">Healthy Recipes</a></li>
+                       <li><a href="#">Exercise Videos</a></li>
+                       <li><a href="#">Transformations</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <ul type="none">
+                        
+                        <li><h4><b>Tools</b></h4></li>
+                        <br>
+                        <li><a href="#">BMR Calculator</a></li>
+                        <li><a href="#">Macro Calculator</a></li>
+                        <li><a href="#">Body Fat Calculator</a></li>
+                        <li><a href="#">1RM Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <ul type="none">
+                        <li><h4><b>Social</b></h4></li>
+                        <br>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Youtube</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        
+                    </ul>
+                </div>
+<!--                <div class="col-sm-2"></div>-->
+            </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12 myfooter">
+            <div style="float: left">
+                Copyright © 2015-20 All Rights Reserved.
+            </div>
+            <span style="float:right">
+                <a href="#">Privacy Policy</a>
+                |
+                <a href="#">Terms and Conditions</a>
+                |
+                <a href="#">Sitemap</a>
+            </span>
+        </div>
+        </div>
+        </div>
+<!--    </div>-->
+</body>
+    <script>
+        function show_side(){
+            $("#sidepanel").addClass('show');
+        }
+        function hide_side(){
+            $("#sidepanel").removeClass('show');
+        }
+    </script>
+</html>
